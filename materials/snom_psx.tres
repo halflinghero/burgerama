@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cufoewm4v8y5g"]
+
+[ext_resource type="Shader" uid="uid://bggae0ebsv0bj" path="res://addons/psx/shaders/psx_opaque.gdshader" id="1_68ci5"]
+[ext_resource type="Texture2D" uid="uid://bm6wppxnv2s1u" path="res://art/snom_body.png" id="2_xwqca"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_68ci5")
+shader_parameter/use_vertex_colors_in_albedo = true
+shader_parameter/use_global_fog = true
+shader_parameter/albedo = ExtResource("2_xwqca")
+shader_parameter/albedo_tint = Color(1.8247963, 1.8247963, 1.8247963, 1)
+shader_parameter/emission_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_threshold = 1.0

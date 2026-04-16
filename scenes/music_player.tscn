@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cotesgfat2hr3"]
+
+[ext_resource type="AudioStream" uid="uid://do63sk7nkvms2" path="res://art/snomSongLoop.ogg" id="1_jxdhu"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" unique_id=1876539551]
+stream = ExtResource("1_jxdhu")
+volume_db = -6.0
+autoplay = true

@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cqqiyl7cxwi8f"]
+
+[ext_resource type="PackedScene" uid="uid://0r46eb0bm1qe" path="res://art/snom.glb" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cggoe7fgglr" path="res://scenes/player.gd" id="1_g2els"]
+
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "float"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.7, 1.2),
+"transitions": PackedFloat32Array(0.4204483, 2.0000005, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.35, 0), Vector3(0, 0.15, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 1.2),
+"transitions": PackedFloat32Array(0.4204483, 0.4204482, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.13962634, 0, 0), Vector3(-0.05235988, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
+_data = {
+&"float": SubResource("Animation_g2els")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g2els"]
+height = 0.68322754
+radius = 1.3676758
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dqkch"]
+height = 0.85596603
+radius = 1.5180664
+
+[node name="Player" type="CharacterBody3D" unique_id=786812890]
+collision_mask = 6
+script = ExtResource("1_g2els")
+jump_impulse = 30
+bounce_impulse = 18
+
+[node name="Pivot" type="Node3D" parent="." unique_id=553271127]
+
+[node name="Snom" parent="Pivot" unique_id=2115765503 instance=ExtResource("1_3vyb7")]
+transform = Transform3D(1, 0, 0, 0, 0.9914542, -0.13045554, 0, 0.13045554, 0.9914542, 0, 0.13624085, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Snom" unique_id=1480415860]
+libraries/ = SubResource("AnimationLibrary_qhqgy")
+autoplay = &"float"
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="." unique_id=1199862570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.317688, 0.26283437)
+shape = SubResource("CylinderShape3D_g2els")
+
+[node name="BurgerDetector" type="Area3D" parent="." unique_id=164027732]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Hurtbox" type="CollisionShape3D" parent="BurgerDetector" unique_id=1210078408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1464194, 0.26283437)
+shape = SubResource("CylinderShape3D_dqkch")
+
+[connection signal="body_entered" from="BurgerDetector" to="." method="_on_burger_detector_body_entered"]

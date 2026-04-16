@@ -1,0 +1,14 @@
+MeshInstance3D
+WorldEnvironment
+ColorRect
+CanvasLayer
+Node3D
+AudioStreamPlayer
+AnimationPlayer
+Label
+Control
+CollisionShape3D
+Area3D
+Timer
+PathFollow3D
+Path3D

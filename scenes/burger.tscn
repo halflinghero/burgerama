@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bd0y1yhxgcqf"]
+
+[ext_resource type="Script" uid="uid://u76pmix7680c" path="res://scenes/burger.gd" id="1_lp3hx"]
+[ext_resource type="PackedScene" uid="uid://bxhskclrnpbma" path="res://art/burger.glb" id="1_mroen"]
+[ext_resource type="Script" uid="uid://calwndiwnxcsi" path="res://art/burgerspinner.gd" id="3_nam63"]
+
+[sub_resource type="Animation" id="Animation_nam63"]
+resource_name = "float"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.7, 1.2),
+"transitions": PackedFloat32Array(0.4204483, 2.0000005, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.35, 0), Vector3(0, 0.15, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 1.2),
+"transitions": PackedFloat32Array(0.4204483, 0.4204482, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.13962634, 0, 0), Vector3(-0.05235988, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4q7kc"]
+_data = {
+&"float": SubResource("Animation_nam63")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nam63"]
+height = 0.5795469
+
+[node name="Burger" type="CharacterBody3D" unique_id=378745877 groups=["burger"]]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_lp3hx")
+min_speed = 6
+max_speed = 14
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1484537626]
+transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233596, 0, -0.05233596, 0.9986295, 0, 0.15, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot" unique_id=375207334]
+libraries/ = SubResource("AnimationLibrary_4q7kc")
+autoplay = &"float"
+
+[node name="BurgerMesh" parent="Pivot" unique_id=1270047940 instance=ExtResource("1_mroen")]
+transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233596, 0, -0.05233596, 0.9986295, 0, 0.15, 0)
+script = ExtResource("3_nam63")
+
+[node name="BurgerCollision" type="CollisionShape3D" parent="." unique_id=276008074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0013427734, 0.2908187, 0.013320923)
+shape = SubResource("CylinderShape3D_nam63")
+
+[node name="BurgerVisNotifier" type="VisibleOnScreenNotifier3D" parent="." unique_id=1457725797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335, 0)
+aabb = AABB(-0.5074657, -0.3653363, -0.5168588, 1.0149314, 0.7306726, 1.0337176)
+
+[connection signal="screen_exited" from="BurgerVisNotifier" to="." method="_on_burger_vis_notifier_screen_exited"]
