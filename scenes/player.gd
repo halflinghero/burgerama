@@ -4,6 +4,9 @@ signal hit
 
 @onready var cam_pivot = get_parent().get_node("CameraPivot")
 
+# Persisted audio settings live in the main menu.
+const SETTINGS_PATH := "user://audio_settings.cfg"
+
 # Sound references
 @onready var jump_sound = $JumpSound
 @onready var eat_sound = $EatSound
@@ -31,6 +34,26 @@ var shake_strength = 0.0
 
 func _ready():
 	base_cam_pos = cam_pivot.position
+	apply_sound_volume_offset()
+
+func apply_sound_volume_offset() -> void:
+	# The Player scene provides default `volume_db` values per sound.
+	# We store only an offset in the settings file and apply it on top of those defaults.
+	var cfg := ConfigFile.new()
+	var err := cfg.load(SETTINGS_PATH)
+	var sound_offset_db := 0.0
+	if err == OK:
+		sound_offset_db = float(cfg.get_value("audio", "sound_offset_db", 0.0))
+
+	var jump_base_db: float = jump_sound.volume_db
+	var eat_base_db: float = eat_sound.volume_db
+	var hit_base_db: float = hit_sound.volume_db
+	var land_base_db: float = land_sound.volume_db
+
+	jump_sound.volume_db = jump_base_db + sound_offset_db
+	eat_sound.volume_db = eat_base_db + sound_offset_db
+	hit_sound.volume_db = hit_base_db + sound_offset_db
+	land_sound.volume_db = land_base_db + sound_offset_db
 
 func start_camera_shake(duration, strength):
 	shake_time = duration
@@ -161,6 +184,6 @@ func knockout():
 	hit_sound.finished.connect(queue_free)
 
 
-func _on_burger_detector_body_entered(body):
+func _on_burger_detector_body_entered(_body):
 	if is_on_floor():
 		knockout()

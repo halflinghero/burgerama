@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://c53ywoeeiee32"]
+
+[ext_resource type="Script" uid="uid://bs2yx2g4ornoy" path="res://scenes/main_menu.gd" id="1_main_menu_script"]
+
+[node name="MainMenu" type="Control" unique_id=1454730373]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main_menu_script")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=119004555]
+layer = -50
+
+[node name="BackgroundTexture" type="TextureRect" parent="BackgroundLayer" unique_id=108214977]
+self_modulate = Color(1, 1, 1, 0.15)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Foreground3DLayer" type="SubViewportContainer" parent="." unique_id=807810717]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="ForegroundViewport" type="SubViewport" parent="Foreground3DLayer" unique_id=968678704]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(720, 540)
+render_target_update_mode = 4
+
+[node name="ModelRoot" type="Node3D" parent="Foreground3DLayer/ForegroundViewport" unique_id=111095948]
+
+[node name="ModelCamera" type="Camera3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=76633692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
+current = true
+
+[node name="ModelLight" type="DirectionalLight3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=19462467]
+transform = Transform3D(0.906308, -0.422618, 0, 0.224329, 0.480631, 0.847013, -0.357928, -0.767682, 0.530315, 0, 0, 0)
+
+[node name="DisplayAnchor" type="Node3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=2023290973]
+
+[node name="Dim" type="ColorRect" parent="." unique_id=1697573124]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="Content" type="CenterContainer" parent="." unique_id=745855552]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Content" unique_id=1202288276]
+custom_minimum_size = Vector2(420, 300)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Content/Buttons" unique_id=1356033494]
+layout_mode = 2
+text = "Play"
+
+[node name="VersusButton" type="Button" parent="Content/Buttons" unique_id=286617046]
+layout_mode = 2
+text = "Versus"
+
+[node name="SettingsButton" type="Button" parent="Content/Buttons" unique_id=153639207]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="Content/Buttons" unique_id=528419698]
+layout_mode = 2
+text = "Quit"
+
+[node name="VersusInfo" type="Label" parent="Content/Buttons" unique_id=800656940]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="SettingsPanel" type="PanelContainer" parent="." unique_id=842926752]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -160.0
+offset_right = 260.0
+offset_bottom = 160.0
+
+[node name="SettingsPanelVBox" type="VBoxContainer" parent="SettingsPanel" unique_id=975959462]
+custom_minimum_size = Vector2(520, 320)
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=328804565]
+layout_mode = 2
+text = "Music volume (dB)"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPanel/SettingsPanelVBox" unique_id=709616930]
+layout_mode = 2
+min_value = -60.0
+max_value = 0.0
+step = 0.5
+value = -6.0
+
+[node name="SoundLabel" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=1279385931]
+layout_mode = 2
+text = "Sound volume offset (dB)"
+
+[node name="SoundSlider" type="HSlider" parent="SettingsPanel/SettingsPanelVBox" unique_id=157386148]
+layout_mode = 2
+min_value = -24.0
+max_value = 0.0
+step = 0.5
+
+[node name="ApplyHint" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=2140048671]
+layout_mode = 2
+text = "Music applies immediately. SFX applies when Play starts."
+autowrap_mode = 1
+
+[node name="BackButton" type="Button" parent="SettingsPanel/SettingsPanelVBox" unique_id=1167313933]
+layout_mode = 2
+text = "Back"
