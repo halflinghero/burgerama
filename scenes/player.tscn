@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dfsalt1w5imh" path="res://art/mediumnom.ogg" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://brguke7hiv6cj" path="res://art/oww.ogg" id="5_fjrip"]
 [ext_resource type="AudioStream" uid="uid://bs8u2k3xlp25d" path="res://art/pop.ogg" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://bq5vw344iydkr" path="res://addons/psx/scripts/RayShadowCaster.gd" id="7_shadow"]
 
 [sub_resource type="Animation" id="Animation_g2els"]
 resource_name = "float"
@@ -93,5 +94,18 @@ pitch_scale = 1.08
 [node name="LandSound" type="AudioStreamPlayer" parent="." unique_id=428647058]
 stream = ExtResource("6_tuyoq")
 volume_db = -15.0
+
+[node name="FakeShadow" type="RayCast3D" parent="." unique_id=1264309813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+target_position = Vector3(0, -3.5, 0)
+collision_mask = 4
+script = ExtResource("7_shadow")
+scale_with_distance = true
+fade_with_distance = true
+shadow_scale = 2.5
+shadow_scale_x = 1.25
+shadow_scale_z = 0.8
+min_distance_scale = 0.2
+margin = 0.02
 
 [connection signal="body_entered" from="BurgerDetector" to="." method="_on_burger_detector_body_entered"]
