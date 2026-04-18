@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://yp1pnveq0cqd"]
+
+[ext_resource type="Shader" uid="uid://bggae0ebsv0bj" path="res://addons/psx/shaders/psx_opaque.gdshader" id="1_e2fvi"]
+[ext_resource type="Texture2D" uid="uid://brdgjbddnbigu" path="res://art/burger_Burger_BaseColor.png" id="2_07vjm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_e2fvi")
+shader_parameter/use_vertex_colors_in_albedo = true
+shader_parameter/use_global_fog = true
+shader_parameter/albedo = ExtResource("2_07vjm")
+shader_parameter/albedo_tint = Color(0.59148246, 0.54677635, 0.47802013, 1)
+shader_parameter/emission_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_threshold = 0.5

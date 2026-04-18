@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://u76pmix7680c" path="res://scenes/burger.gd" id="1_lp3hx"]
 [ext_resource type="PackedScene" uid="uid://bxhskclrnpbma" path="res://art/burger.glb" id="1_mroen"]
 [ext_resource type="Script" uid="uid://calwndiwnxcsi" path="res://art/burgerspinner.gd" id="3_nam63"]
+[ext_resource type="Script" path="res://addons/psx/scripts/RayShadowCaster.gd" id="4_shadow"]
 
 [sub_resource type="Animation" id="Animation_nam63"]
 resource_name = "float"
@@ -67,5 +68,13 @@ shape = SubResource("CylinderShape3D_nam63")
 [node name="BurgerVisNotifier" type="VisibleOnScreenNotifier3D" parent="." unique_id=1457725797]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335, 0)
 aabb = AABB(-0.5074657, -0.3653363, -0.5168588, 1.0149314, 0.7306726, 1.0337176)
+
+[node name="FakeShadow" type="RayCast3D" parent="." unique_id=109465432]
+position = Vector3(0, 0.8, 0)
+target_position = Vector3(0, -2.5, 0)
+collision_mask = 4
+script = ExtResource("4_shadow")
+scale_with_distance = true
+margin = 0.02
 
 [connection signal="screen_exited" from="BurgerVisNotifier" to="." method="_on_burger_vis_notifier_screen_exited"]
