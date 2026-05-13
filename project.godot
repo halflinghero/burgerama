@@ -15,11 +15,12 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Snom's Burger Bonanza"
-config/description="In this game, your goal is to chase and kick out the creeps!"
+config/description="Jump on the burgers and don't get hit!"
+config/tags=PackedStringArray("3d", "guided", "solo")
 run/main_scene="uid://c6ujt274jwibv"
 config/features=PackedStringArray("4.6")
 boot_splash/image="uid://h5qheybheloa"
-config/icon="uid://nuk2n0q8xcfm"
+config/icon="uid://0ynio87ofluh"
 
 [autoload]
 

@@ -1,10 +1,10 @@
+AnimationPlayer
 MeshInstance3D
 WorldEnvironment
 ColorRect
 CanvasLayer
 Node3D
 AudioStreamPlayer
-AnimationPlayer
 Label
 Control
 CollisionShape3D

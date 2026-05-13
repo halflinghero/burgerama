@@ -14,6 +14,7 @@ static func _static_init() -> void:
 @export var shadow_scale_z : float = 1.0
 @export_range(0.0, 1.0, 0.01) var min_distance_scale : float = 0.35
 @export var align_to_parent_yaw : bool = true
+@export var yaw_source_path : NodePath
 
 @export var margin : float = 0.025
 
@@ -37,6 +38,17 @@ func _init() -> void:
 	mesh.material_override = _material_override
 	add_child(mesh)
 
+func _get_yaw_source() -> Node3D:
+	if not yaw_source_path.is_empty():
+		var candidate := get_node_or_null(yaw_source_path)
+		if candidate is Node3D:
+			return candidate as Node3D
+
+	if get_parent() is Node3D:
+		return get_parent() as Node3D
+
+	return null
+
 
 func _process(delta: float) -> void:
 	global_rotation = Vector3.ZERO
@@ -51,9 +63,10 @@ func _process(delta: float) -> void:
 	mesh.global_position = get_collision_point() + ground_normal * margin
 	mesh.global_basis.z = -ground_normal
 
-	if align_to_parent_yaw and get_parent() is Node3D:
-		var parent_yaw := (get_parent() as Node3D).global_rotation.y
-		mesh.global_basis = Basis(ground_normal, parent_yaw) * mesh.global_basis
+	if align_to_parent_yaw:
+		var yaw_source := _get_yaw_source()
+		if yaw_source != null:
+			mesh.global_basis = Basis(ground_normal, yaw_source.global_rotation.y) * mesh.global_basis
 
 	mesh.transparency = collision_percent if fade_with_distance else 0.0
 	var distance_scale := 1.0

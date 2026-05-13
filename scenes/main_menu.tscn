@@ -1,6 +1,30 @@
 [gd_scene format=3 uid="uid://c53ywoeeiee32"]
 
 [ext_resource type="Script" uid="uid://bs2yx2g4ornoy" path="res://scenes/main_menu.gd" id="1_main_menu_script"]
+[ext_resource type="ArrayMesh" uid="uid://dbhlm55q0vcl2" path="res://meshes/snomMesh.tres" id="2_5dd4i"]
+[ext_resource type="Theme" uid="uid://dee3ruuldswcw" path="res://themes/menuButtonText.tres" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://calwndiwnxcsi" path="res://art/burgerspinner.gd" id="2_lgwnu"]
+[ext_resource type="FontFile" uid="uid://d2cojj84sattp" path="res://fonts/Daydream DEMO.otf" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://bsjoyp37svxvk" path="res://PSX_BurgerIconTiny.png" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://c88qcsvhrqqgk" path="res://PSX_BurgerIconTinyOn.png" id="5_oa1go"]
+[ext_resource type="Texture2D" uid="uid://p1ltpwgps0qs" path="res://PSX_BurgerIconTinyOff.png" id="6_tbmy8"]
+[ext_resource type="StyleBox" uid="uid://bs4n1fq5q35wi" path="res://themes/backButton.tres" id="7_oa1go"]
+[ext_resource type="StyleBox" uid="uid://dfhpnguogtx4a" path="res://themes/backButtonDark.tres" id="8_jk1qb"]
+[ext_resource type="StyleBox" uid="uid://xyg53xwo3q0j" path="res://themes/backButtonLight.tres" id="9_5dd4i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0.2674634, 0.14377743, 0.22656506, 1)
+border_width_left = 26
+border_width_top = 26
+border_width_right = 26
+border_color = Color(0.26666668, 0.14509805, 0.22745098, 1)
+corner_radius_top_left = 44
+corner_radius_top_right = 44
+corner_radius_bottom_right = 44
+corner_radius_bottom_left = 44
+shadow_color = Color(0, 0, 0, 0.7294118)
+shadow_size = 1
+shadow_offset = Vector2(-7.995, 7.81)
 
 [node name="MainMenu" type="Control" unique_id=1454730373]
 layout_mode = 3
@@ -36,23 +60,30 @@ mouse_filter = 2
 stretch = true
 
 [node name="ForegroundViewport" type="SubViewport" parent="Foreground3DLayer" unique_id=968678704]
-transparent_bg = true
 handle_input_locally = false
 size = Vector2i(720, 540)
 render_target_update_mode = 4
 
 [node name="ModelRoot" type="Node3D" parent="Foreground3DLayer/ForegroundViewport" unique_id=111095948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256.05804, 0, 0)
 
 [node name="ModelCamera" type="Camera3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=76633692]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
 current = true
 
 [node name="ModelLight" type="DirectionalLight3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=19462467]
-transform = Transform3D(0.906308, -0.422618, 0, 0.224329, 0.480631, 0.847013, -0.357928, -0.767682, 0.530315, 0, 0, 0)
+transform = Transform3D(0.90638494, -0.42245266, -0.00018216496, 0.22434805, 0.48098007, 0.8475412, -0.35795844, -0.76823944, 0.53072953, 0, 0, 0)
 
 [node name="DisplayAnchor" type="Node3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot" unique_id=2023290973]
+transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 2.737004, 0.67796266, 0)
+script = ExtResource("2_lgwnu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Foreground3DLayer/ForegroundViewport/ModelRoot/DisplayAnchor" unique_id=788963392]
+transform = Transform3D(0.055818137, -0.014935928, -0.0007827515, 1.4551915e-09, 0.0030243443, -0.057707973, 0.014956429, 0.055741623, 0.0029212944, 0, 0.14999998, 0)
+mesh = ExtResource("2_5dd4i")
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1697573124]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,60 +93,80 @@ color = Color(0, 0, 0, 0.45)
 
 [node name="Content" type="CenterContainer" parent="." unique_id=745855552]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = 43.0
+offset_top = 107.0
+offset_right = 420.0
 grow_vertical = 2
 
 [node name="Buttons" type="VBoxContainer" parent="Content" unique_id=1202288276]
-custom_minimum_size = Vector2(420, 300)
+custom_minimum_size = Vector2(240, 300)
 layout_mode = 2
+theme_override_constants/separation = 29
 
 [node name="PlayButton" type="Button" parent="Content/Buttons" unique_id=1356033494]
 layout_mode = 2
+theme = ExtResource("2_bqqt6")
+theme_override_fonts/font = ExtResource("3_wu84c")
 text = "Play"
 
 [node name="VersusButton" type="Button" parent="Content/Buttons" unique_id=286617046]
+visible = false
 layout_mode = 2
+theme = ExtResource("2_bqqt6")
+theme_override_fonts/font = ExtResource("3_wu84c")
 text = "Versus"
 
 [node name="SettingsButton" type="Button" parent="Content/Buttons" unique_id=153639207]
 layout_mode = 2
+theme = ExtResource("2_bqqt6")
+theme_override_fonts/font = ExtResource("3_wu84c")
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="Content/Buttons" unique_id=528419698]
 layout_mode = 2
+theme = ExtResource("2_bqqt6")
+theme_override_fonts/font = ExtResource("3_wu84c")
 text = "Quit"
 
 [node name="VersusInfo" type="Label" parent="Content/Buttons" unique_id=800656940]
-visible = false
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 1
 
 [node name="SettingsPanel" type="PanelContainer" parent="." unique_id=842926752]
 visible = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -160.0
-offset_right = 260.0
-offset_bottom = 160.0
+offset_left = -280.0
+offset_top = -190.0
+offset_right = 292.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtw2f")
 
 [node name="SettingsPanelVBox" type="VBoxContainer" parent="SettingsPanel" unique_id=975959462]
 custom_minimum_size = Vector2(520, 320)
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="MusicLabel" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=328804565]
 layout_mode = 2
-text = "Music volume (dB)"
+theme_override_fonts/font = ExtResource("3_wu84c")
+text = "Music"
 
 [node name="MusicSlider" type="HSlider" parent="SettingsPanel/SettingsPanelVBox" unique_id=709616930]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("4_rtw2f")
+theme_override_icons/grabber_highlight = ExtResource("5_oa1go")
+theme_override_icons/grabber_disabled = ExtResource("6_tbmy8")
 min_value = -60.0
 max_value = 0.0
 step = 0.5
@@ -123,19 +174,32 @@ value = -6.0
 
 [node name="SoundLabel" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=1279385931]
 layout_mode = 2
-text = "Sound volume offset (dB)"
+theme_override_fonts/font = ExtResource("3_wu84c")
+text = "SOUND FX"
 
 [node name="SoundSlider" type="HSlider" parent="SettingsPanel/SettingsPanelVBox" unique_id=157386148]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("4_rtw2f")
+theme_override_icons/grabber_highlight = ExtResource("5_oa1go")
+theme_override_icons/grabber_disabled = ExtResource("6_tbmy8")
 min_value = -24.0
 max_value = 0.0
 step = 0.5
 
 [node name="ApplyHint" type="Label" parent="SettingsPanel/SettingsPanelVBox" unique_id=2140048671]
+visible = false
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 text = "Music applies immediately. SFX applies when Play starts."
 autowrap_mode = 1
 
 [node name="BackButton" type="Button" parent="SettingsPanel/SettingsPanelVBox" unique_id=1167313933]
 layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("3_wu84c")
+theme_override_styles/normal = ExtResource("7_oa1go")
+theme_override_styles/pressed = ExtResource("8_jk1qb")
+theme_override_styles/hover = ExtResource("9_5dd4i")
 text = "Back"
+icon_alignment = 1
+vertical_icon_alignment = 0

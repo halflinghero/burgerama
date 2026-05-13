@@ -102,10 +102,11 @@ collision_mask = 4
 script = ExtResource("7_shadow")
 scale_with_distance = true
 fade_with_distance = true
-shadow_scale = 2.5
-shadow_scale_x = 1.25
-shadow_scale_z = 0.8
+shadow_scale = 2.25
+shadow_scale_x = 1.1
+shadow_scale_z = 0.95
 min_distance_scale = 0.2
+align_to_parent_yaw = false
 margin = 0.02
 
 [connection signal="body_entered" from="BurgerDetector" to="." method="_on_burger_detector_body_entered"]

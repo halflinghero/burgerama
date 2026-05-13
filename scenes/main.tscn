@@ -10,8 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://biau54p83wfxt" path="res://art/dirtyCheckers_PSX_small_albedo.png" id="6_eb6dy"]
 [ext_resource type="Script" uid="uid://bbu1mbpbhtmq5" path="res://scenes/score_label.gd" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://cp4oi5ijoiujn" path="res://art/dirtyCheckers_albedo.png" id="6_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://43q70cskytbc" path="res://art/a_button.png" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c53ywoeeiee32" path="res://scenes/main_menu.tscn" id="8_main_menu"]
+[ext_resource type="FontFile" uid="uid://d2cojj84sattp" path="res://fonts/Daydream DEMO.otf" id="13_a8y0u"]
+[ext_resource type="FontFile" uid="uid://bwta2d3pfwjs7" path="res://fonts/ari-w9500-display.ttf" id="14_jkv2x"]
+[ext_resource type="Script" uid="uid://gx0w8eb34qdu" path="res://scenes/pause_menu.gd" id="15_pause_menu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
 size = Vector3(60, 2, 60)
@@ -45,7 +47,7 @@ background_color = Color(0.99790937, 0.88075393, 0.7152213, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.43300983, 0.3842089, 0.4200038, 1)
 ambient_light_energy = 0.5
-tonemap_exposure = 1.1
+tonemap_exposure = 0.95
 tonemap_white = 2.35
 ssao_enabled = true
 ssao_radius = 3.07
@@ -80,12 +82,13 @@ default_font_size = 22
 [sub_resource type="Theme" id="Theme_tefeu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
-bg_color = Color(0.004019165, 0.004019165, 0.004019165, 0.039215688)
+bg_color = Color(0.23623481, 0.11716702, 0.2519347, 0.627451)
 corner_radius_top_left = 33
 corner_radius_top_right = 33
 corner_radius_bottom_right = 33
 corner_radius_bottom_left = 33
 expand_margin_left = 33.0
+expand_margin_top = 11.0
 expand_margin_right = 33.0
 shadow_color = Color(0, 0, 0, 0.019607844)
 shadow_size = 23
@@ -95,6 +98,7 @@ script = ExtResource("1_sugp2")
 burger_scene = ExtResource("2_jyhfs")
 
 [node name="PSX" type="CanvasLayer" parent="." unique_id=1104032605]
+visible = false
 
 [node name="PostProcessingRect" type="ColorRect" parent="PSX" unique_id=68626709]
 material = ExtResource("3_85g3d")
@@ -181,7 +185,6 @@ wait_time = 0.5
 visible = false
 
 [node name="UserInterface" type="Control" parent="." unique_id=447768879]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -197,13 +200,15 @@ offset_top = 27.0
 offset_right = 182.0
 offset_bottom = 50.0
 theme_override_colors/font_color = Color(0.7349324, 0.50984305, 0.99307877, 1)
-theme_override_colors/font_shadow_color = Color(0.9842245, 0.30373475, 0.9207421, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 7
 theme_override_constants/shadow_outline_size = 10
-text = "Burgers Munched: 0"
+theme_override_fonts/font = ExtResource("13_a8y0u")
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("6_o6xl0")
 
 [node name="Retry" type="ColorRect" parent="UserInterface" unique_id=665856940]
@@ -225,33 +230,33 @@ anchor_bottom = 0.5
 offset_left = -335.5
 offset_top = -29.0
 offset_right = 335.5
-offset_bottom = 36.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_tefeu")
 theme_override_colors/font_color = Color(1, 1, 0.38431373, 1)
-theme_override_colors/font_shadow_color = Color(1, 0.64705884, 0, 0.2)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 11
 theme_override_constants/shadow_outline_size = 21
-theme_override_font_sizes/font_size = 47
-text = "Press [Space] or      to Retry!"
-
-[node name="AButton" type="Sprite2D" parent="UserInterface/Retry" unique_id=1695007506]
-position = Vector2(442, 271)
-scale = Vector2(0.4229166, 0.4229166)
-texture = ExtResource("7_o6xl0")
+theme_override_fonts/font = ExtResource("13_a8y0u")
+theme_override_font_sizes/font_size = 28
+text = "Press any key to retry!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="." unique_id=783208302]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("15_pause_menu")
 
 [node name="Overlay" type="ColorRect" parent="PauseMenu" unique_id=319492018]
 layout_mode = 1
@@ -261,7 +266,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.05882353)
+color = Color(0, 0, 0, 0.3137255)
 
 [node name="Panel" type="PanelContainer" parent="PauseMenu" unique_id=195362191]
 layout_mode = 1
@@ -281,22 +286,27 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_eb6dy")
 [node name="PauseMenuVBox" type="VBoxContainer" parent="PauseMenu/Panel" unique_id=892063107]
 custom_minimum_size = Vector2(440, 290)
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="PauseMenu/Panel/PauseMenuVBox" unique_id=774969845]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("13_a8y0u")
 text = "Paused"
 horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PauseMenu/Panel/PauseMenuVBox" unique_id=659431688]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_jkv2x")
 text = "Resume"
 
 [node name="QuitToMenuButton" type="Button" parent="PauseMenu/Panel/PauseMenuVBox" unique_id=761804204]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_jkv2x")
 text = "Quit to Menu"
 
 [node name="QuitToDesktopButton" type="Button" parent="PauseMenu/Panel/PauseMenuVBox" unique_id=186852361]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_jkv2x")
 text = "Quit to Desktop"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
